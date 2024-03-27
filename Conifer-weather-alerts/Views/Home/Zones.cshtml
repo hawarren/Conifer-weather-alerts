@@ -1,0 +1,149 @@
+@model List<StateZonesViewModel>
+
+<h2>Zones</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Zone ID</th>
+            <th>Zone Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Zone</td>
+                <td>@item.City</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button type="button" onclick="fetchData(1)">Button</button>
+
+<div class="text-center">
+    <h3>Select a Region:</h3>
+    <form method="post" asp-action="Zones">
+        <select name="selectedRegionId" onchange="showZones(this.value)">
+            @foreach (var state in Model)
+            {
+                <option value="@state.State">@state.State</option>
+            }
+        </select>
+        <button type="submit">Select a state</button>
+    </form>
+</div>
+
+<div id="zoneTable"></div>
+
+<script>
+    function fetchData(id) {
+        fetch(`/api/zone/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the JSON results in a table
+                var tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = '';
+                data.forEach(item => {
+                    var row = document.createElement('tr');
+                    var idCell = document.createElement('td');
+                    var nameCell = document.createElement('td');
+                    idCell.textContent = item.id;
+                    nameCell.textContent = item.name;
+                    row.appendChild(idCell);
+                    row.appendChild(nameCell);
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function showZones(state) {
+        fetch(`/api/zones/${state}`)
+            .then(response => response.json())
+            .then(data => {
+                var zoneTable = document.getElementById('zoneTable');
+                zoneTable.innerHTML = '';
+
+                data.forEach(city => {
+                    var cityHeader = document.createElement('h4');
+                    cityHeader.textContent = city.City;
+                    zoneTable.appendChild(cityHeader);
+
+                    var zoneList = document.createElement('ul');
+                    city.Zones.forEach(zone => {
+                        var zoneItem = document.createElement('li');
+                        zoneItem.textContent = zone.Zone;
+                        zoneItem.onclick = function() {
+                            fetchWeatherAlerts(zone.Zone);
+                        };
+                        zoneList.appendChild(zoneItem);
+                    });
+
+                    zoneTable.appendChild(zoneList);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function fetchWeatherAlerts(zone) {
+        fetch(`https://api.weather.gov/alerts/active/zone/${zone}`)
+            .then(response => response.json())
+            .then(data => {
+                var alertsTable = document.createElement('table');
+                alertsTable.classList.add('alerts-table');
+
+                var tableHead = document.createElement('thead');
+                var headRow = document.createElement('tr');
+                var eventHeader = document.createElement('th');
+                eventHeader.textContent = 'Event';
+                var severityHeader = document.createElement('th');
+                severityHeader.textContent = 'Severity';
+                var headlineHeader = document.createElement('th');
+                headlineHeader.textContent = 'Headline';
+                var descriptionHeader = document.createElement('th');
+                descriptionHeader.textContent = 'Description';
+
+                headRow.appendChild(eventHeader);
+                headRow.appendChild(severityHeader);
+                headRow.appendChild(headlineHeader);
+                headRow.appendChild(descriptionHeader);
+                tableHead.appendChild(headRow);
+                alertsTable.appendChild(tableHead);
+
+                var tableBody = document.createElement('tbody');
+                data.features.forEach(alert => {
+                    var properties = alert.properties;
+                    var row = document.createElement('tr');
+                    var eventCell = document.createElement('td');
+                    eventCell.textContent = properties.event;
+                    var severityCell = document.createElement('td');
+                    severityCell.textContent = properties.severity;
+                    var headlineCell = document.createElement('td');
+                    headlineCell.textContent = properties.headline;
+                    var descriptionCell = document.createElement('td');
+                    descriptionCell.textContent = properties.description;
+
+                    row.appendChild(eventCell);
+                    row.appendChild(severityCell);
+                    row.appendChild(headlineCell);
+                    row.appendChild(descriptionCell);
+                    tableBody.appendChild(row);
+                });
+
+                alertsTable.appendChild(tableBody);
+
+                var zoneTable = document.getElementById('zoneTable');
+                zoneTable.innerHTML = '';
+                zoneTable.appendChild(alertsTable);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>

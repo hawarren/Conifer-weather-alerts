@@ -1,0 +1,23 @@
+﻿@model List<RegionStatesViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="text-center">
+    <h3>Select a Region:</h3>
+    <form method="post" asp-action="Zones">
+        <select name="selectedRegionId">
+            @foreach (var zone in Model)
+            {
+                <option value="@zone.RegionId">@zone.RegionName (@zone.States)</option>
+            }
+        </select>
+        <button type="submit">Alerts</button>
+    </form>
+</div>

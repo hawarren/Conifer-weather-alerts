@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 0,
+    "Name": "New England and New Jersey"
+  },
+  {
+    "Id": 1,
+    "Name": "Middle Atlantic"
+  },
+  {
+    "Id": 2,
+    "Name": "South Atlantic"
+  },
+  {
+    "Id": 3,
+    "Name": "Southeast"
+  },
+  {
+    "Id": 4,
+    "Name": "Midwest"
+  },
+  {
+    "Id": 5,
+    "Name": "Upper Midwest"
+  },
+  {
+    "Id": 6,
+    "Name": "Central"
+  },
+  {
+    "Id": 7,
+    "Name": "South Central"
+  },
+  {
+    "Id": 8,
+    "Name": "Mountain"
+  },
+  {
+    "Id": 9,
+    "Name": "Pacific"
+  }
+]

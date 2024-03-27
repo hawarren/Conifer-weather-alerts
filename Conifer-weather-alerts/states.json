@@ -1,0 +1,257 @@
+[
+  {
+    "Name": "Alabama",
+    "Abbreviation": "AL",
+    "RegionId": 3
+  },
+  {
+    "Name": "Alaska",
+    "Abbreviation": "AK",
+    "RegionId": 9
+  },
+  {
+    "Name": "Arizona",
+    "Abbreviation": "AZ",
+    "RegionId": 8
+  },
+  {
+    "Name": "Arkansas",
+    "Abbreviation": "AR",
+    "RegionId": 7
+  },
+  {
+    "Name": "California",
+    "Abbreviation": "CA",
+    "RegionId": 9
+  },
+  {
+    "Name": "Colorado",
+    "Abbreviation": "CO",
+    "RegionId": 8
+  },
+  {
+    "Name": "Connecticut",
+    "Abbreviation": "CT",
+    "RegionId": 0
+  },
+  {
+    "Name": "Delaware",
+    "Abbreviation": "DE",
+    "RegionId": 1
+  },
+  {
+    "Name": "District Of Columbia",
+    "Abbreviation": "DC",
+    "RegionId": 2
+  },
+  {
+    "Name": "Florida",
+    "Abbreviation": "FL",
+    "RegionId": 3
+  },
+  {
+    "Name": "Georgia",
+    "Abbreviation": "GA",
+    "RegionId": 3
+  },
+  {
+    "Name": "Hawaii",
+    "Abbreviation": "HI",
+    "RegionId": 9
+  },
+  {
+    "Name": "Idaho",
+    "Abbreviation": "ID",
+    "RegionId": 8
+  },
+  {
+    "Name": "Illinois",
+    "Abbreviation": "IL",
+    "RegionId": 6
+  },
+  {
+    "Name": "Indiana",
+    "Abbreviation": "IN",
+    "RegionId": 4
+  },
+  {
+    "Name": "Iowa",
+    "Abbreviation": "IA",
+    "RegionId": 5
+  },
+  {
+    "Name": "Kansas",
+    "Abbreviation": "KS",
+    "RegionId": 6
+  },
+  {
+    "Name": "Kentucky",
+    "Abbreviation": "KY",
+    "RegionId": 4
+  },
+  {
+    "Name": "Louisiana",
+    "Abbreviation": "LA",
+    "RegionId": 7
+  },
+  {
+    "Name": "Maine",
+    "Abbreviation": "ME",
+    "RegionId": 0
+  },
+  {
+    "Name": "Maryland",
+    "Abbreviation": "MD",
+    "RegionId": 2
+  },
+  {
+    "Name": "Massachusetts",
+    "Abbreviation": "MA",
+    "RegionId": 0
+  },
+  {
+    "Name": "Michigan",
+    "Abbreviation": "MI",
+    "RegionId": 4
+  },
+  {
+    "Name": "Minnesota",
+    "Abbreviation": "MN",
+    "RegionId": 5
+  },
+  {
+    "Name": "Mississippi",
+    "Abbreviation": "MS",
+    "RegionId": 3
+  },
+  {
+    "Name": "Missouri",
+    "Abbreviation": "MO",
+    "RegionId": 6
+  },
+  {
+    "Name": "Montana",
+    "Abbreviation": "MT",
+    "RegionId": 5
+  },
+  {
+    "Name": "Nebraska",
+    "Abbreviation": "NE",
+    "RegionId": 6
+  },
+  {
+    "Name": "Nevada",
+    "Abbreviation": "NV",
+    "RegionId": 8
+  },
+  {
+    "Name": "New Hampshire",
+    "Abbreviation": "NH",
+    "RegionId": 0
+  },
+  {
+    "Name": "New Jersey",
+    "Abbreviation": "NJ",
+    "RegionId": 0
+  },
+  {
+    "Name": "New Mexico",
+    "Abbreviation": "NM",
+    "RegionId": 8
+  },
+  {
+    "Name": "New York",
+    "Abbreviation": "NY",
+    "RegionId": 1
+  },
+  {
+    "Name": "North Carolina",
+    "Abbreviation": "NC",
+    "RegionId": 2
+  },
+  {
+    "Name": "North Dakota",
+    "Abbreviation": "ND",
+    "RegionId": 5
+  },
+  {
+    "Name": "Ohio",
+    "Abbreviation": "OH",
+    "RegionId": 4
+  },
+  {
+    "Name": "Oklahoma",
+    "Abbreviation": "OK",
+    "RegionId": 7
+  },
+  {
+    "Name": "Oregon",
+    "Abbreviation": "OR",
+    "RegionId": 9
+  },
+  {
+    "Name": "Pennsylvania",
+    "Abbreviation": "PA",
+    "RegionId": 1
+  },
+  {
+    "Name": "Rhode Island",
+    "Abbreviation": "RI",
+    "RegionId": 0
+  },
+  {
+    "Name": "South Carolina",
+    "Abbreviation": "SC",
+    "RegionId": 2
+  },
+  {
+    "Name": "South Dakota",
+    "Abbreviation": "SD",
+    "RegionId": 5
+  },
+  {
+    "Name": "Tennessee",
+    "Abbreviation": "TN",
+    "RegionId": 3
+  },
+  {
+    "Name": "Texas",
+    "Abbreviation": "TX",
+    "RegionId": 7
+  },
+  {
+    "Name": "Utah",
+    "Abbreviation": "UT",
+    "RegionId": 8
+  },
+  {
+    "Name": "Vermont",
+    "Abbreviation": "VT",
+    "RegionId": 0
+  },
+  {
+    "Name": "Virginia",
+    "Abbreviation": "VA",
+    "RegionId": 2
+  },
+  {
+    "Name": "Washington",
+    "Abbreviation": "WA",
+    "RegionId": 9
+  },
+  {
+    "Name": "West Virginia",
+    "Abbreviation": "WV",
+    "RegionId": 2
+  },
+  {
+    "Name": "Wisconsin",
+    "Abbreviation": "WI",
+    "RegionId": 5
+  },
+  {
+    "Name": "Wyoming",
+    "Abbreviation": "WY",
+    "RegionId": 8
+  }
+]
