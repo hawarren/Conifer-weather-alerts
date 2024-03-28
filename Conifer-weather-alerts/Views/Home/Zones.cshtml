@@ -2,30 +2,14 @@
 
 <h2>Zones</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Zone ID</th>
-            <th>Zone Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Zone</td>
-                <td>@item.City</td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-<button type="button" onclick="fetchData(1)">Button</button>
+@*
+<button type="button" onclick="fetchData(1)">Button</button> *@
 
 <div class="text-center">
     <h3>Select a Region:</h3>
     <form method="post" asp-action="Zones">
-        <select name="selectedRegionId" onchange="showZones(this.value)">
+        <select id="stateDropdown" name="selectedRegionId" onchange="showZones(this.value)">
             @foreach (var state in Model)
             {
                 <option value="@state.State">@state.State</option>
@@ -34,10 +18,140 @@
         <button type="submit">Select a state</button>
     </form>
 </div>
-
+@*
+<table>
+    <thead>
+        <tr>
+            <th>Zone ID</th>
+            <th>Zone Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stateItem in Model)
+        {
+            foreach (var zoneItem in stateItem.Cities)
+            {
+                foreach (var zone in zoneItem.CityZones)
+                {
+                    <tr>
+                        <td>@zoneItem.City</td>
+                        <td>@zone.Zone</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table> *@
 <div id="zoneTable"></div>
 
 <script>
+    function showAlert() {
+        var selectedItem = document.getElementById("stateDropdown").value;
+        alert("Selected item: " + selectedItem);
+    }
+    var debugData = @Html.Raw(Json.Serialize(Model));
+    var debugselectedItem = document.getElementById("stateDropdown").value;
+    function showZones(state) {
+        var selectedItem = document.getElementById("stateDropdown").value;
+        //alert("Selected item: " + selectedItem);
+        var data = @Html.Raw(Json.Serialize(Model));
+        console.log(data);
+        console.log("the state chosen is " + selectedItem);
+        console.log("first state listed is " + data[0].state)
+       // console.log("first zone listed is " + data[0].cities[0].city)
+        data.forEach(item => console.log(item.state))
+        var stateData = data.filter(item => item.state === selectedItem)[0]
+        console.log("reading the number of zones of stateData")
+        console.log("First item in stateData is " + stateData.cities[0])
+        if (stateData !== undefined) {
+            var zoneTable = document.getElementById('zoneTable');
+            zoneTable.innerHTML = '';
+            console.log("number of cities in this state is " + stateData.cities.length);
+            stateData.cities.forEach(city => {
+                var cityHeader = document.createElement('h4');
+                cityHeader.textContent = city.city;
+                console.log("reading the city " + cityHeader.textContent + "with " + city.cityZones.length + " zones")
+                zoneTable.appendChild(cityHeader);
+                if (city.cityZones.length > 0) {
+                    var zoneList = document.createElement('ul');
+                    city.cityZones.forEach(zone => {
+                        console.log("creating entry for " + zone.zone)
+                        var zoneItem = document.createElement('li');
+                        zoneItem.textContent = zone.zone;
+                        zoneItem.onclick = function () {
+                            fetchWeatherAlerts(zone.zone)
+                        }
+                        zoneList.appendChild(zoneItem);
+                        console.log("created list item for " + zoneItem.textContent)
+                    });
+                    zoneTable.appendChild(zoneList);
+                }
+
+                console.log("updated tables")
+            });
+        }
+    }
+
+    function fetchWeatherAlerts(zone) {
+        console.log("Getting weather alerts for " + zone)
+        fetch(`https://api.weather.gov/alerts/active/zone/${zone}`)
+            .then(response => response.json())
+            .then(data => {
+                var alertsTable = document.createElement('table');
+                alertsTable.classList.add('alerts-table');
+
+                var tableHead = document.createElement('thead');
+                var headRow = document.createElement('tr');
+                var eventHeader = document.createElement('th');
+                eventHeader.textContent = 'Event';
+                var severityHeader = document.createElement('th');
+                severityHeader.textContent = 'Severity';
+                var headlineHeader = document.createElement('th');
+                headlineHeader.textContent = 'Headline';
+                var descriptionHeader = document.createElement('th');
+                descriptionHeader.textContent = 'Description';
+
+                headRow.appendChild(eventHeader);
+                headRow.appendChild(severityHeader);
+                headRow.appendChild(headlineHeader);
+                headRow.appendChild(descriptionHeader);
+                tableHead.appendChild(headRow);
+                alertsTable.appendChild(tableHead);
+
+                var tableBody = document.createElement('tbody');
+                data.features.forEach(alert => {
+                    var properties = alert.properties;
+                    var row = document.createElement('tr');
+                    var eventCell = document.createElement('td');
+                    eventCell.textContent = properties.event;
+                    var severityCell = document.createElement('td');
+                    severityCell.textContent = properties.severity;
+                    var headlineCell = document.createElement('td');
+                    headlineCell.textContent = properties.headline;
+                    var descriptionCell = document.createElement('td');
+                    descriptionCell.textContent = properties.description;
+
+                    row.appendChild(eventCell);
+                    row.appendChild(severityCell);
+                    row.appendChild(headlineCell);
+                    row.appendChild(descriptionCell);
+                    tableBody.appendChild(row);
+                });
+
+                alertsTable.appendChild(tableBody);
+
+                var zoneTable = document.getElementById('zoneTable');
+                zoneTable.innerHTML = '';
+                zoneTable.appendChild(alertsTable);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script>
+<script type="text/javascript">
+
     function fetchData(id) {
         fetch(`/api/zone/${id}`)
             .then(response => response.json())
@@ -54,36 +168,6 @@
                     row.appendChild(idCell);
                     row.appendChild(nameCell);
                     tableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    function showZones(state) {
-        fetch(`/api/zones/${state}`)
-            .then(response => response.json())
-            .then(data => {
-                var zoneTable = document.getElementById('zoneTable');
-                zoneTable.innerHTML = '';
-
-                data.forEach(city => {
-                    var cityHeader = document.createElement('h4');
-                    cityHeader.textContent = city.City;
-                    zoneTable.appendChild(cityHeader);
-
-                    var zoneList = document.createElement('ul');
-                    city.Zones.forEach(zone => {
-                        var zoneItem = document.createElement('li');
-                        zoneItem.textContent = zone.Zone;
-                        zoneItem.onclick = function() {
-                            fetchWeatherAlerts(zone.Zone);
-                        };
-                        zoneList.appendChild(zoneItem);
-                    });
-
-                    zoneTable.appendChild(zoneList);
                 });
             })
             .catch(error => {
@@ -146,4 +230,5 @@
                 console.error('Error:', error);
             });
     }
+
 </script>

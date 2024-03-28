@@ -21,3 +21,19 @@
         <button type="submit">Alerts</button>
     </form>
 </div>
+
+<div>
+    <h3>Select an Item:</h3>
+    <select id="myDropdown" onchange="showAlert()">
+        <option value="item1">Item 1</option>
+        <option value="item2">Item 2</option>
+        <option value="item3">Item 3</option>
+    </select>
+</div>
+
+<script>
+    function showAlert() {
+        var selectedItem = document.getElementById("myDropdown").value;
+        alert("Selected item: " + selectedItem);
+    }
+</script>

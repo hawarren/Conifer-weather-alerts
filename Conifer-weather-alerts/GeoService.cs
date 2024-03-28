@@ -44,13 +44,22 @@ public class GeoService
     {
         List<State> states = GetStates();
         List<Zones> zones = GetZones();
-
+        var uniqueCities = zones.Where(item => item.State == state).Select(item => item.City).Distinct();
+        List<CityZonesViewModel> myList = new List<CityZonesViewModel>();
+        foreach (var city in uniqueCities)
+        {
+            CityZonesViewModel cityZonesViewModel = new CityZonesViewModel
+            {
+                City = city,
+                CityZones = zones.Where(zone => zone.City == city).ToList()
+            };
+            myList.Add(cityZonesViewModel);
+        }
         StateZonesViewModel stateZonesViewModel = new StateZonesViewModel
         {
             State = state,
-            Zones = zones.Where(zone => zone.StateAbbreviation == state).ToList()
+            Cities = myList
         };
-
         return stateZonesViewModel;
     }
     public List<StateZonesViewModel> GetStatesAndCitiesByRegionId(int regionId)
@@ -60,13 +69,7 @@ public class GeoService
 
         List<StateZonesViewModel> statesAndCities = states
             .Where(state => state.RegionId == regionId)
-            .Select(state => new StateZonesViewModel
-            {
-               State =  state.Name,
-                Zones = zones
-                        .Where(zone => zone.StateAbbreviation == state.Abbreviation)                        
-                        .ToList()
-            })
+            .Select(state => GetStateZonesViewModel(state.Name))            
             .ToList();
 
         return statesAndCities;
@@ -105,7 +108,14 @@ public class RegionStatesViewModel
 }
 
 public class StateZonesViewModel
-    {
-        public string State { get; set; }
-        public List<Zones> Zones { get; set; }
-    }
+{
+    public string State { get; set; }
+    public List<CityZonesViewModel> Cities { get; set; }
+}
+
+public class CityZonesViewModel
+{
+    public string City { get; set; }
+    public List<Zones> CityZones { get; set; }
+
+}
