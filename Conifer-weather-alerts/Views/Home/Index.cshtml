@@ -1,13 +1,8 @@
 ﻿@model List<RegionStatesViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Region Selection";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 
 <div class="text-center">
     <h3>Select a Region:</h3>
@@ -21,19 +16,3 @@
         <button type="submit">Alerts</button>
     </form>
 </div>
-
-<div>
-    <h3>Select an Item:</h3>
-    <select id="myDropdown" onchange="showAlert()">
-        <option value="item1">Item 1</option>
-        <option value="item2">Item 2</option>
-        <option value="item3">Item 3</option>
-    </select>
-</div>
-
-<script>
-    function showAlert() {
-        var selectedItem = document.getElementById("myDropdown").value;
-        alert("Selected item: " + selectedItem);
-    }
-</script>
